@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # Start Gotenberg in background on internal port 3001
-gotenberg --api-timeout=120s --api-disable-health-check-logging=true --libreoffice-restart-after=10 --port=3001 &
+gotenberg --api-timeout=120s --api-disable-health-check-route-telemetry=true --libreoffice-restart-after=10 --api-port=3001 &
 gotenberg_pid=$!
 
 # Wait up to 120 seconds for Gotenberg, failing the container if it exits.
