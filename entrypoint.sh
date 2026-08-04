@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # Start Gotenberg in background on internal port 3001
-gotenberg --api-timeout=120s --api-disable-health-check-route-telemetry=true --libreoffice-restart-after=10 --api-port=3001 &
+gotenberg --api-timeout=120s --api-disable-health-check-route-telemetry=true --libreoffice-restart-after=10 --api-bind-ip=127.0.0.1 --api-port=3001 &
 gotenberg_pid=$!
 
 # Wait up to 120 seconds for Gotenberg, failing the container if it exits.
@@ -29,7 +29,7 @@ echo "Gotenberg is ready!"
 
 # Keep both processes supervised. If either one exits, terminate the other so
 # Render restarts the whole service instead of leaving a broken Nginx process.
-nginx -g "daemon off;" &
+nginx -g "daemon off; master_process off;" &
 nginx_pid=$!
 
 shutdown() {
